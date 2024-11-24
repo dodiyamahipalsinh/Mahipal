@@ -1,0 +1,172 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Variables
+//  _____________________________________________
+
+@icon-wishlist: '@{baseDir}images/wishlist.svg';
+
+//
+//  Common (styles-m.css)
+//  _____________________________________________
+& when (@media-common = true) {
+    .product-media {
+        margin: 0 50px;
+        position: relative;
+        .action.towishlist {
+            right: 0;
+            z-index: @z-index-1;
+            position: absolute;
+        }
+    }
+    .action.towishlist {
+        .lib-icon-image(
+            @_icon-image-width: 20px,
+            @_icon-image-height: 18px,
+            @_icon-image: @icon-wishlist,
+            @_icon-image-text-hide: true
+        );
+    }
+    .fotorama__active {
+        div.fotorama__dot {
+            background-color: @color-black;
+            border-color: @color-black;
+        }
+    }
+    div.fotorama__dot {
+        border: 0;
+        background: rgba(0, 0, 0, 0.20);
+        width: 15px;
+        height: 2px;
+    }
+    .product-content {
+        .product-options-bottom{
+            .box-tocart{
+                display: block;
+                .actions{
+                    display: block;
+                    .action{
+                        &.tocart{
+                            width: 100%;
+                            border-radius:30px;
+                            font-weight: 400;
+                            span{
+                                &:after{
+                                    content: '\2192';
+                                    display: inline-block;
+                                    vertical-align: top;
+                                    margin-left: 10px;
+                                }
+                            }
+                            &:hover{
+                                border:0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .product-options-wrapper{
+            .fashion_size{
+                .swatch-option{
+                    background: transparent;
+                    min-width: 42px;
+                    border-radius: 30px;
+                    &:hover{
+                        background: #000;
+                        border:1px solid #000;
+                        color: #fff;
+                        outline: 0;
+                    }
+                }
+            }
+        }  
+    }
+}
+
+//
+//  Mobile (styles-m.css)
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    
+}
+
+
+//
+//  Desktop (style-l.css)
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .product-media {
+        width: ~"calc(100% - 820px)";
+        .lib-vendor-prefix-order(2);
+        text-align: right;
+        .action{
+            &.towishlist{
+                position: sticky;
+                right: 0;
+                width: auto;
+                top: 0;
+            }
+        }
+    }
+    .product-content {
+        .lib-vendor-prefix-order(3);
+        
+    }
+    .page-layout-1column {
+        .product-info-main,
+        .product.media {
+            float: none;
+            width: 100%;
+        }
+    }
+    .product-main {
+        .lib-vendor-prefix-display(flex);
+        .lib-vendor-prefix-flex-wrap(wrap);
+        .lib-vendor-box-align(flex-start);
+    }
+    .product-content,
+    .product-tab {
+        position: sticky;
+        top: 0;
+        width: 360px;
+    }
+    .product-tab {
+        .lib-vendor-prefix-order(1);
+        .product{
+            &.data{
+                &.items{
+                    .item{
+                        &.title{
+                            margin: 0 10px 0 0;
+                            .switch{
+                                background:transparent;
+                                border:0;
+                                padding: 0 15px 0 0;
+                                font-weight: 400;
+                                &:hover{
+                                    color: #000;
+                                }
+                            }
+                            &.active{
+                                .switch{
+                                    font-weight: 600;
+                                    color: #000;
+                                }
+                            }
+                        }
+                        &.content{
+                            padding: 0;
+                            border:0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

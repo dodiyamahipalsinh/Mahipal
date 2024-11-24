@@ -1,0 +1,57 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Product media data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Gallery
+ */
+?>
+
+<?php
+$images = $block->getGalleryImages()->getItems();
+$mainImage = current(array_filter($images, function ($img) use ($block) {
+    return $block->isMainImage($img);
+}));
+
+if (!empty($images) && empty($mainImage)) {
+    $mainImage = $block->getGalleryImages()->getFirstItem();
+}
+
+$helper = $block->getData('imageHelper');
+$mainImageData = $mainImage ?
+    $mainImage->getData('medium_image_url') :
+    $helper->getDefaultPlaceholderUrl('image');
+
+?>
+<div class="gallery-placeholder _block-content-loading mobile-slider" data-gallery-role="gallery-placeholder">
+    <?php if($images) { ?>
+        <?php foreach($images as $image){ ?>
+            <div>
+                <img
+                    alt="Your Product Photo"
+                    class="gallery-placeholder__image lazy"
+                    src="<?= /* @noEscape */ $mainImage->getData('medium_image_url') ?>"
+                    data-src="<?= /* @noEscape */ $image->getData('medium_image_url') ?>"
+                />
+            </div>
+        <?php } ?>
+        <?php } else { ?>
+            <img
+                alt="Your Product Photo"
+                loading="lazy"
+                class="gallery-placeholder__image"
+                src="<?= /* @noEscape */ $helper->getDefaultPlaceholderUrl('image') ?>"
+            />
+    <?php } ?>
+</div>
+<script type="text/x-magento-init">
+    {   
+        ".gallery-placeholder": {
+            "mobilegallery": {}
+        }
+    }
+</script>
